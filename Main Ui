@@ -1,0 +1,260 @@
+-- Booting the Library
+getgenv().SecureMode = true -- Enable Secure Mode
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+-- Creating the Main Window
+local MainWindow = Rayfield:CreateWindow({
+    Name = "Ugc Blox Fruit", -- Window name
+    LoadingTitle = "Hell Gate",
+    LoadingSubtitle = "Hell Boy",
+    Size = UDim2.new(0, 200, 0, 250), -- Adjusted window size
+    ConfigurationSaving = {
+        Enabled = true,
+        FolderName = "hellgate", -- Custom folder
+        FileName = "Ugc Blox Fruit" -- Unique filename
+    },
+    Discord = {
+        Enabled = false,
+        Invite = "Not created",
+        RememberJoins = true
+    },
+    KeySystem = false, -- Key system
+    KeySettings = {
+        Title = "Give me soul",
+        Subtitle = "Give me soul and the gate will open",
+        Note = "No method of obtaining the key is provided",
+        FileName = "Total Soul", -- Unique key filename
+        SaveKey = true, -- Save user key
+        GrabKeyFromSite = false,
+        Key = {"Hello"} -- Accepted keys
+    }
+})
+
+-- Creating a Tab in the Main Window for Click Actions
+local MainTab = MainWindow:CreateTab("Click's Action", 4483362458) -- Title and image
+
+-- Creating a Section in Main Tab for Click Actions
+local Section = MainTab:CreateSection("Click Actions")
+
+-- Button for Auto Click
+MainTab:CreateButton({
+    Name = "Auto Click",
+    Callback = function()
+        while true do
+            game:GetService("ReplicatedStorage").Remotes.Click:FireServer()
+            wait(0.1) -- Small wait to prevent spamming
+        end
+    end
+})
+
+-- Button for Move to Extra Click Zone
+MainTab:CreateButton({
+    Name = "Move to Extra Click Zone",
+    Callback = function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(613.58667, 390.732056, -273.193787)
+    end
+})
+
+-- Variable to track collecting clicks state
+local collectingClicks = false
+
+-- Button for Collecting Clicks in Loop
+MainTab:CreateButton({
+    Name = "Toggle Collect Clicks",
+    Callback = function()
+        collectingClicks = not collectingClicks
+        if collectingClicks then
+            spawn(function()
+                while collectingClicks do
+                    for i = 1, 15 do
+                        game:GetService("ReplicatedStorage").Remotes.CollectClicks:FireServer(tostring(i))
+                        wait(0.1) -- Small wait between each collection
+                    end
+                    wait(1) -- Wait before repeating the collection
+                end
+            end)
+        end
+    end
+})
+
+-- Button for Auto Collect Gifts
+MainTab:CreateButton({
+    Name = "Auto Collect Gifts",
+    Callback = function()
+        spawn(function()
+            while true do
+                for i = 1, 5 do
+                    game:GetService("ReplicatedStorage").Remotes.ClaimPlaytimeReward:FireServer(i)
+                    wait(0.1) -- Adjust the wait time as necessary
+                end
+                wait(600) -- Wait for 600 seconds (10 minutes)
+            end
+        end)
+    end
+})
+
+-- Button for Auto Spin
+MainTab:CreateButton({
+    Name = "Auto Spin",
+    Callback = function()
+        spawn(function()
+            while true do
+                game:GetService("ReplicatedStorage").Remotes.SpinWheel:FireServer()
+                wait(600) -- Wait for 600 seconds (10 minutes)
+            end
+        end)
+    end
+})
+
+-- Creating a Separate Window for Egg Actions
+local EggWindow = Rayfield:CreateWindow({
+    Name = "Ugc Blox Fruit (By HellBoy)", -- Updated window name
+    LoadingTitle = "Egg Menu",
+    LoadingSubtitle = "Manage Eggs",
+    Size = UDim2.new(0, 200, 0, 200), -- Adjusted window size
+    ConfigurationSaving = {
+        Enabled = true,
+        FolderName = "hellgate", -- Custom folder
+        FileName = "EggActions" -- Unique filename
+    },
+    Discord = {
+        Enabled = false,
+        Invite = "Not created",
+        RememberJoins = true
+    },
+    KeySystem = false, -- Key system
+})
+
+-- Creating a Tab in Egg Window
+local EggTab = EggWindow:CreateTab("Egg Section", 4483362458) -- Updated tab title
+
+-- Button for Buying Common Egg
+EggTab:CreateButton({
+    Name = "Buy Common Egg",
+    Callback = function()
+        game:GetService("ReplicatedStorage").Remotes.BuyEgg:FireServer("Common")
+    end
+})
+
+-- Button for Buying Uncommon Egg
+EggTab:CreateButton({
+    Name = "Buy Uncommon Egg",
+    Callback = function()
+        game:GetService("ReplicatedStorage").Remotes.BuyEgg:FireServer("Uncommon")
+    end
+})
+
+-- Button for Buying Limited Egg
+EggTab:CreateButton({
+    Name = "Buy Limited Egg",
+    Callback = function()
+        game:GetService("ReplicatedStorage").Remotes.BuyEgg:FireServer("Limited")
+    end
+})
+
+-- Button for Auto Equipping Best Pet with Loop Every 5 Seconds
+EggTab:CreateButton({
+    Name = "Auto Equip Best Pet",
+    Callback = function()
+        spawn(function()
+            while true do
+                game:GetService("ReplicatedStorage").Remotes.EquipBestPet:FireServer() -- Auto Equip Best Pet
+                wait(5) -- Wait for 5 seconds before repeating
+            end
+        end)
+    end
+})
+
+-- Button for Buying Eggs in a Loop
+EggTab:CreateButton({
+    Name = "Auto Buy All Eggs",
+    Callback = function()
+        spawn(function()
+            while true do
+                game:GetService("ReplicatedStorage").Remotes.BuyEgg:FireServer("Common")
+                wait(600) -- Wait for 10 minutes
+                game:GetService("ReplicatedStorage").Remotes.BuyEgg:FireServer("Uncommon")
+                wait(600) -- Wait for 10 minutes
+                game:GetService("ReplicatedStorage").Remotes.BuyEgg:FireServer("Limited")
+                wait(3000) -- Wait for 50 minutes
+            end
+        end)
+    end
+})
+
+-- Creating a Third Tab Named "One Click (Do Everything In One Click)"
+local OneClickTab = MainWindow:CreateTab("One Click", 4483362458) -- New tab for one-click actions
+
+-- Button for One Click (Do Everything In One Click)
+OneClickTab:CreateButton({
+    Name = "One Click (Do Everything In One Click)",
+    Callback = function()
+        -- Execute all actions in loops similar to the existing buttons
+        
+        -- Auto Click
+        spawn(function()
+            while true do
+                game:GetService("ReplicatedStorage").Remotes.Click:FireServer()
+                wait(0.1) -- Small wait to prevent spamming
+            end
+        end)
+
+        -- Move to Extra Click Zone (Only once)
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(613.58667, 390.732056, -273.193787)
+
+        -- Collect Clicks
+        spawn(function()
+            while true do
+                for i = 1, 15 do
+                    game:GetService("ReplicatedStorage").Remotes.CollectClicks:FireServer(tostring(i))
+                    wait(0.1) -- Small wait between each collection
+                end
+                wait(1) -- Wait before repeating the collection
+            end
+        end)
+
+        -- Auto Collect Gifts
+        spawn(function()
+            while true do
+                for i = 1, 5 do
+                    game:GetService("ReplicatedStorage").Remotes.ClaimPlaytimeReward:FireServer(i)
+                    wait(0.1) -- Adjust the wait time as necessary
+                end
+                wait(600) -- Wait for 600 seconds (10 minutes)
+            end
+        end)
+
+        -- Auto Spin
+        spawn(function()
+            while true do
+                game:GetService("ReplicatedStorage").Remotes.SpinWheel:FireServer()
+                wait(600) -- Wait for 600 seconds (10 minutes)
+            end
+        end)
+
+        -- Auto Buy Eggs
+        spawn(function()
+            while true do
+                game:GetService("ReplicatedStorage").Remotes.BuyEgg:FireServer("Common")
+                wait(600) -- Wait for 10 minutes
+                game:GetService("ReplicatedStorage").Remotes.BuyEgg:FireServer("Uncommon")
+                wait(600) -- Wait for 10 minutes
+                game:GetService("ReplicatedStorage").Remotes.BuyEgg:FireServer("Limited")
+                wait(3000) -- Wait for 50 minutes
+            end
+        end)
+
+        -- Auto Equip Best Pet
+        spawn(function()
+            while true do
+                game:GetService("ReplicatedStorage").Remotes.EquipBestPet:FireServer() -- Auto Equip Best Pet
+                wait(5) -- Wait for 5 seconds before repeating
+            end
+        end)
+    end
+})
+
+-- Load Configuration
+Rayfield:LoadConfiguration(15)
+
+-- Notify
